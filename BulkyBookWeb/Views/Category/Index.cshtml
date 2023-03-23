@@ -3,6 +3,8 @@
     ViewData["Title"] = "Index";
 }
 
+<partial name="Notification" />
+
 <div class="container p-6">
     <h2>Index Category</h2>
     <div class="row pt-4 mb-3">
@@ -17,23 +19,39 @@
     </div>
 </div>
 
-<table class="table table-striped mb-5">
-    <thead>
+<table class="table table-light mb-5 w-100">
+    <thead class="table-primary">
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Category Name</th>
-            <th scope="col">Display Order</th>
+            <th scope="col" class="w-10">Bil</th>
+            <th scope="col" class="w-40">Category Name</th>
+            <th scope="col" class="w-40">Display Order</th>
+            <th scope="col" class="w-10">Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var obj in Model)
-        {
-             <tr>
-                <th scope="row">1</th>
-                <td>@obj.Name</td>
-                <td>@obj.DisplayOrder</td>
-            </tr>
-        }
-        
+        @{int bilangan = 1;
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <th scope="row">@bilangan</th>
+                    <td>@obj.Name</td>
+                    <td>@obj.DisplayOrder</td>
+                    <td>
+                        <div class="w-25 btn-group" role="group">
+                            <!-- to define the route of the button with the specific ID -->
+                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"> 
+                            <i class="bi bi-pencil-square"></i> Edit</a>
+                        </div>
+                        <div class="w-25 btn-group" role="group">
+                            <!-- to define the route of the button with the specific ID -->
+                            <a asp-controller="Category" asp-action="Remove" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                <i class="bi bi-trash-fill"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+               bilangan++;
+            }
+        }  
     </tbody>
 </table>
